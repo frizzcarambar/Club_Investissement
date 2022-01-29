@@ -47,19 +47,17 @@ class Controller{
         }
         else{
           $motRecherche = urlencode($company);
-          /// Put in header => X-RapidAPI-Key your key for the API 
-          $opts = array('http'=>array('method'=>"GET",'header'=>"X-RapidAPI-Key: "));
+          /// Ajouter votre X-RapidAPI-Key dans le fichier src/control/API_Key
+          $opts = array('http'=>array('method'=>"GET",'header'=>"X-RapidAPI-Key: " . file_get_contents("src/control/API_Key.txt")));
           $context = stream_context_create($opts);
           $url ="https://yh-finance.p.rapidapi.com/auto-complete?q=".$motRecherche;
           $raw = file_get_contents($url, false, $context);
           $json = json_decode($raw);
           if(!empty($json->quotes)) {
             foreach($json->quotes as $value){
-              $request = $this->storage->getDb()->prepare("INSERT INTO company (exchange, longname, shortname, symbol, find_with) VALUES (exchange = :exchange, longname = :longname, shortname = :shortname, symbol = :symbol, find_with = :find_with)");
-              $data = array(':exchange' => $value->exchange, ':longname' => $value->longname, ':shortname' => $value->shortname, ':symbol' => $value->symbol, ':find_with' => $company);
-              var_dump($data);
+              $request = $this->storage->getDb()->prepare("INSERT INTO company (exchange, longname, shortname, symbol, find_with) VALUES (:exchange, :longname, :shortname, :symbol, :find_with)");
+              $data = array('exchange' => $value->exchange, 'longname' => $value->longname, 'shortname' => $value->shortname, 'symbol' => $value->symbol, 'find_with' => $company);
               $request->execute($data);
-              break;
             }
             $this->view->displayRedirectAccueil("Add in db");
           }
