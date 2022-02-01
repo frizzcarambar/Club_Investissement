@@ -43,7 +43,7 @@ class Controller{
         $requete->execute(array(':find_with' => $company));
         $all_company = $requete->fetchAll();
         if($all_company){
-          $this->view->displayRedirectAccueil("Test");
+          $this->view->makeListPage($all_company);
         }
         else{
           $motRecherche = urlencode($company);
@@ -56,14 +56,55 @@ class Controller{
           if(!empty($json->quotes)) {
             foreach($json->quotes as $value){
               $request = $this->storage->getDb()->prepare("INSERT INTO company (exchange, longname, shortname, symbol, find_with) VALUES (:exchange, :longname, :shortname, :symbol, :find_with)");
-              $data = array('exchange' => $value->exchange, 'longname' => $value->longname, 'shortname' => $value->shortname, 'symbol' => $value->symbol, 'find_with' => $company);
-              $request->execute($data);
+              try{
+                $this->verifArray($value);
+                $data = array('exchange' => $value->exchange, 'longname' => $value->longname, 'shortname' => $value->shortname, 'symbol' => $value->symbol, 'find_with' => $company);
+              }
+              catch(Exception $e){
+                $data = array();
+                if(property_exists($value, "exchange")){
+                  $data['exchange'] = $value->exchange;
+                }
+                else{
+                  $data['exchange'] = "null";
+                }
+                if(property_exists($value, "longname")){
+                  $data['longname'] = $value->longname;
+                }
+                else{
+                  $data['longname'] = "null";
+                }
+                if(property_exists($value, "shortname")){
+                  $data['shortname'] = $value->shortname;
+                }
+                else{
+                  $data['shortname'] = "null";
+                }
+                if(property_exists($value, "symbol")){
+                  $data['symbol'] = $value->symbol;
+                }
+                else{
+                  $data['symbol'] = "null";
+                }
+                $data["find_with"] = $company;
+              }
+              finally{
+                $request->execute($data);
+              }
             }
-            $this->view->displayRedirectAccueil("Add in db");
+            $requete->execute(array(':find_with' => $company));
+            $all_company = $requete->fetchAll();
+            $this->view->makeListPage($all_company);
           }
           else{
             $this->view->displayRedirectAccueil("Found nothing");
           }
+        }
+      }
+
+      public function verifArray($json){
+        if(!property_exists($json, "symbol")||!property_exists($json, "shortname")||!property_exists($json, "longname")||!property_exists($json, "exchange")){
+          throw new Exception();
         }
       }
 
