@@ -15,20 +15,7 @@ class View{
     include "view/squelette.php";
   }
 
-  public function makeAccueilPage(){
-    $this->title = "Test";
-    $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/home_style.css\" type=\"text/css\">";
-    if($this->feedback!=null){
-      $this->content = "<p>$this->feedback</p>";
-    }
-    include "all_page/home.php";
-    $this->content .= $home_page;
-    include "all_page/recherche.php";
-    $this->content .= $recherche;
-    $this->renderSquelette();
-  }
-
-  public function makeListPage(array $resultat_recherche){
+  public function makeAccueilPage(array $resultat_recherche = null){
     $this->title = "Test";
     $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/home_style.css\" type=\"text/css\">
                     <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">";
@@ -39,16 +26,19 @@ class View{
     $this->content .= $home_page;
     include "all_page/recherche.php";
     $this->content .= $recherche;
-    $this->content .= "<br><table>
-                          <tr>
-                            <th>Shortname</th>
-                            <th>Exchange</th>
-                            <th>Symbol</th>
-                          </tr>";
-    foreach($resultat_recherche as $value){
-      $this->content .= "<tr><td>{$value["shortname"]}</td>><td>{$value["exchange"]}</td>><td>{$value["symbol"]}</td></tr>";
+    if($resultat_recherche!=null){
+      $this->content .= "<br><table>
+                            <tr>
+                              <th>Shortname</th>
+                              <th>Exchange</th>
+                              <th>Symbol</th>
+                            </tr>";
+      foreach($resultat_recherche as $value){
+        $this->content .= "<tr><td><a href=\"index.php?company={$value["symbol"]}\"><b>{$value["shortname"]}</b></a></td>><td>{$value["exchange"]}</td>><td>{$value["symbol"]}</td></tr>";
+      }
+      $this->content .= "</table>";
     }
-    $this->content .= "</table>";
+    $this->content .= "<script src=\"src/all_page/home_script.js\"></script>";
     $this->renderSquelette();
   }
 
@@ -81,6 +71,10 @@ class View{
 
   public function displayRedirectAccueil($feedback){
     $this->router->PostRedirect("index.php" , $feedback);
+  }
+
+  public function displayRedirectAccueilWithList($list){
+    $this->router->PostRedirectWithList("index.php" , $list);
   }
 }
 

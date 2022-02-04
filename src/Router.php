@@ -15,8 +15,8 @@ class Router{
     $view = new View($this, $_SESSION["feedback"]);
     $storage = new Database();
     $controller = new Controller($view, $storage);
-    if(isset($_GET["id"])){
-      $controller->showInformation($_GET["id"]);
+    if(isset($_GET["company"])){
+      $controller->showInformation($_GET["company"]);
     }
     if(isset($_GET["action"])){
       if($_GET["action"] == "connexion"){
@@ -38,6 +38,10 @@ class Router{
     }
   }
 
+  function getCompanyURL(){
+    return "index.php";
+  }
+
   function getConnexionURL(){
     return "index.php?action=connexion";
   }
@@ -54,7 +58,7 @@ class Router{
     return "index.php?action=verificationCompany";
   }
 
-  function POSTredirect($url, $feedback){
+  function POSTredirect($url, $feedback, $list = null){
     header("Location:".$url,true,303);
     $_SESSION["feedback"] = $feedback;
   }

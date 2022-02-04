@@ -1,3 +1,8 @@
 table, tr, th, td{
   border: 1px solid black;
 }
+
+td a{
+  color: black;
+  text-decoration: none;
+}

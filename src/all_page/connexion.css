@@ -8,7 +8,7 @@ body::before{
   opacity: 0.9;
 }
 
-form{
+#form_connexion{
   position: absolute;
   width: 300px;
   padding: 40px;
@@ -24,7 +24,7 @@ form{
   background-color: #BEBEBE;
 }
 
-form input[type="text"], form input[type="password"]{
+#form_connexion input[type="text"], #form_connexion input[type="password"]{
   display: block;
   margin: 20px auto;
   text-align: center;
@@ -37,11 +37,11 @@ form input[type="text"], form input[type="password"]{
   transition: 0.25s;
 }
 
-form input[type="text"]:focus, form input[type="password"]:focus{
+#form_connexion input[type="text"]:focus, #form_connexion input[type="password"]:focus{
   border-color: black
 }
 
-form input[type="submit"]{
+#form_connexion input[type="submit"]{
   display: block;
   margin: 20px auto;
   text-align: center;

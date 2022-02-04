@@ -10,9 +10,9 @@ $home_page = "<nav class=\"menu_bar\">
     <li><a href=\"#\">Footer</a></li>
   </ul>
   <ul class=\"menu_connexion\">
-    <button>";
+    <button id=\"button_connexion\">";
 if($_SESSION["connexion"] == null){
-  $home_page .= "<a href=". $this->router->getConnexionURL() .">Connexion</a>";
+  $home_page .= "Connexion";
 }
 else{
   $home_page .= "<a href=". $this->router->getDeconnexionURL() .">Deconnexion</a>";

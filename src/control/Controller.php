@@ -13,6 +13,14 @@ class Controller{
     if($id===null){
       $this->view->makeAccueilPage();
     }
+    else{
+      $opts = array('http'=>array('method'=>"GET",'header'=>"X-RapidAPI-Key: " . file_get_contents("src/control/API_Key.txt")));
+      $context = stream_context_create($opts);
+      $url ="https://yh-finance.p.rapidapi.com/market/v2/get-quotes?region=US&symbols=".str_replace("\"","",$id);
+      $raw = file_get_contents($url, false, $context);
+      $json = json_decode($raw);
+      var_dump($json);
+    }
   }
 
       public function verificationconnexion(array $data){
@@ -43,7 +51,7 @@ class Controller{
         $requete->execute(array(':find_with' => $company));
         $all_company = $requete->fetchAll();
         if($all_company){
-          $this->view->makeListPage($all_company);
+          $this->view->makeAccueilPage($all_company);
         }
         else{
           $motRecherche = urlencode($company);
@@ -94,7 +102,7 @@ class Controller{
             }
             $requete->execute(array(':find_with' => $company));
             $all_company = $requete->fetchAll();
-            $this->view->makeListPage($all_company);
+            $this->view->makeAccueilPage($all_company);
           }
           else{
             $this->view->displayRedirectAccueil("Found nothing");
