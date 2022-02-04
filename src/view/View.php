@@ -4,11 +4,9 @@ class View{
   public $title;
   public $content;
   public $router;
-  public $feedback;
 
-  public function __construct(Router $router, $feedback){
+  public function __construct(Router $router){
     $this->router = $router;
-    $this->feedback = $feedback;
   }
 
   public function renderSquelette(){
@@ -19,9 +17,6 @@ class View{
     $this->title = "Test";
     $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/home_style.css\" type=\"text/css\">
                     <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">";
-    if($this->feedback!=null){
-      $this->content = "<p>$this->feedback</p>";
-    }
     include "all_page/home.php";
     $this->content .= $home_page;
     include "all_page/recherche.php";
@@ -69,8 +64,8 @@ class View{
    $this->renderSquelette();
   }
 
-  public function displayRedirectAccueil($feedback){
-    $this->router->PostRedirect("index.php" , $feedback);
+  public function displayRedirectAccueil(){
+    $this->router->PostRedirect("index.php");
   }
 
   public function displayRedirectAccueilWithList($list){

@@ -11,8 +11,7 @@ require_once("model/UsersBuilder.php");
 class Router{
   function main(){
     if(!key_exists("connexion", $_SESSION))$_SESSION["connexion"] = null;
-    if(!key_exists("feedback", $_SESSION))$_SESSION["feedback"] = null;
-    $view = new View($this, $_SESSION["feedback"]);
+    $view = new View($this);
     $storage = new Database();
     $controller = new Controller($view, $storage);
     if(isset($_GET["company"])){
@@ -58,9 +57,8 @@ class Router{
     return "index.php?action=verificationCompany";
   }
 
-  function POSTredirect($url, $feedback, $list = null){
+  function POSTredirect($url, $list = null){
     header("Location:".$url,true,303);
-    $_SESSION["feedback"] = $feedback;
   }
 }
 
