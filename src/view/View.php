@@ -15,12 +15,11 @@ class View{
 
   public function makeAccueilPage(array $resultat_recherche = null){
     $this->title = "Test";
-    $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/home_style.css\" type=\"text/css\">
-                    <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">";
+    $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/homeStyle.css\" type=\"text/css\">
+                    <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">
+                    <link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\">";
     include "all_page/home.php";
     $this->content .= $home_page;
-    include "all_page/recherche.php";
-    $this->content .= $recherche;
     if($resultat_recherche!=null){
       $this->content .= "<br><table>
                             <tr>

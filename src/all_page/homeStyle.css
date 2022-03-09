@@ -5,11 +5,11 @@
 
 .menu_bar{
   display: flex;
-  justify-content: space-between;
   padding: 20px 30px;
   background-color: white;
-  height: 50px;
   font-size: 16px;
+  height: 100px;
+  justify-content: space-between;
 }
 
 .menu_bar a{
@@ -18,10 +18,24 @@
   font-size: 16px;
 }
 
-.menu_bar .logo{
+.logo{
+  height: 100%;
+}
+
+.menu-left{
+  width: 125px;
+}
+
+.menu-right{
+  flex: 0.9;
+  justify-content: space-between;
+}
+
+.menu-top{
   display: flex;
-  align-items: center;
-  width: 100px;
+  flex-direction: row;
+  flex: 0.4;
+  justify-content: space-between;
 }
 
 .menu_nav{
@@ -37,7 +51,7 @@
   font-size: 13.333px;
 }
 
-.menu_connexion #button_connexion{
+#button_connexion, #button_deconnexion{
   width: 100px;
   height: 100%;
   border: 1px solid #353CBE;

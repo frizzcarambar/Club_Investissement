@@ -24,6 +24,7 @@ class Controller{
   }
 
       public function verificationconnexion(array $data){
+        var_dump($data);
         $requete = $this->storage->getDb()->prepare('SELECT * FROM Users WHERE mail = :mail && password = :password');
         $requete->execute(array(':mail' => $data["mail"], ':password' => $data["password"]));
         $users = $requete->fetch();

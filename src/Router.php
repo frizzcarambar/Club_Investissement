@@ -26,7 +26,7 @@ class Router{
       }
       else if($_GET["action"] == "deconnexion"){
         unset($_SESSION['connexion']);
-        $this->PostRedirect("index.php?action=connexion", "Vous êtes maintenant déconnecté");
+        $this->PostRedirect("index.php");
       }
       else if($_GET["action"] == "verificationCompany"){
         $controller->verificationCompany($_POST["company"]);
