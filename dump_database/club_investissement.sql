@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 02, 2022 at 01:30 PM
+-- Generation Time: Mar 09, 2022 at 01:50 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -153,7 +153,21 @@ INSERT INTO `company` (`idCompany`, `exchange`, `longname`, `shortname`, `symbol
 (151, 'GER', 'Renault SA', 'RENAULT INH.  EO 3,81', 'RNL.DE', 'renault'),
 (152, 'IOB', 'Renault SA', 'RENAULT SA RENAULT PAR SHS', '0NQF.IL', 'renault'),
 (153, 'VIE', 'Renault SA', 'RENAULT SA', 'RNO.VI', 'renault'),
-(154, 'HAM', 'null', 'RENAULT INH.  EO 3,81', 'RNL.HM', 'renault');
+(154, 'HAM', 'null', 'RENAULT INH.  EO 3,81', 'RNL.HM', 'renault'),
+(155, 'NMS', 'Tesla, Inc.', 'Tesla, Inc.', 'TSLA', 'tsla'),
+(156, 'NEO', 'Tesla, Inc.', 'TESLA, INC. CDR (CAD HEDGED)', 'TSLA.NE', 'tsla'),
+(157, 'OPR', 'null', 'TSLA Feb 2022 1000.000 call', 'TSLA220204C01000000', 'tsla'),
+(158, 'MEX', 'Tesla, Inc.', 'TESLA INC', 'TSLA.MX', 'tsla'),
+(159, 'OPR', 'null', 'TSLA Feb 2022 900.000 call', 'TSLA220204C00900000', 'tsla'),
+(160, 'OPR', 'null', 'TSLA Feb 2022 950.000 call', 'TSLA220204C00950000', 'tsla'),
+(161, 'OPR', 'null', 'TSLA Feb 2022 800.000 put', 'TSLA220204P00800000', 'tsla'),
+(162, 'FRA', 'L\'Oréal S.A.', 'OREAL (L\') INH.  EO 0,2', 'LOR.F', 'oreal'),
+(163, 'VIE', 'L\'Oréal S.A.', 'L OREAL SA', 'OR.VI', 'oreal'),
+(164, 'FRA', 'L\'Oréal S.A.', 'OREAL (L\') ADR 1/5/EO 0,2', 'LORA.F', 'oreal'),
+(165, 'GER', 'L\'Oréal S.A.', 'OREAL (L\') INH.  EO 0,2', 'LOR.DE', 'oreal'),
+(166, 'DUS', 'null', 'OREAL (L\') INH.  EO 0,2', 'LOR.DU', 'oreal'),
+(167, 'BER', 'null', 'OREAL (L\') ADR 1/5/EO 0,2', 'LORA.BE', 'oreal'),
+(168, 'BER', 'null', 'OREAL (L\') INH.  EO 0,2', 'LOR.BE', 'oreal');
 
 -- --------------------------------------------------------
 
@@ -186,7 +200,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idUsers`, `mail`, `password`, `role`) VALUES
-(1, 'comptetest@test.com', 'test', 0);
+(1, 'admin', 'test', 0);
 
 --
 -- Indexes for dumped tables
@@ -218,7 +232,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `idCompany` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+  MODIFY `idCompany` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
 
 --
 -- AUTO_INCREMENT for table `transaction`
