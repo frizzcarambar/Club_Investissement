@@ -28,7 +28,7 @@ class View{
                               <th>Symbol</th>
                             </tr>";
       foreach($resultat_recherche as $value){
-        $this->content .= "<tr><td><a href=\"index.php?company={$value["symbol"]}\"><b>{$value["shortname"]}</b></a></td>><td>{$value["exchange"]}</td>><td>{$value["symbol"]}</td></tr>";
+        $this->content .= "<tr><td><a href=\"index.php?company={$value["symbol"]}\"><b>{$value["name"]}</b></a></td>><td>{$value["exch"]}</td>><td>{$value["symbol"]}</td></tr>";
       }
       $this->content .= "</table>";
     }

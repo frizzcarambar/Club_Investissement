@@ -14,12 +14,22 @@ class Controller{
       $this->view->makeAccueilPage();
     }
     else{
-      $opts = array('http'=>array('method'=>"GET",'header'=>"X-RapidAPI-Key: " . file_get_contents("src/control/API_Key.txt")));
+      $opts = array('http'=>array('method'=>"GET",'header'=>"x-api-key: " . file_get_contents("src/control/API_Key.txt")));
       $context = stream_context_create($opts);
-      $url ="https://yh-finance.p.rapidapi.com/market/v2/get-quotes?region=US&symbols=".str_replace("\"","",$id);
+      $url ="https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=".$_GET["company"];
       $raw = file_get_contents($url, false, $context);
       $json = json_decode($raw);
-      var_dump($json);
+      $data = array('triggerable', 'fullExchangeName' , 'financialCurrency', 'regularMarketOpen', 'priceToBook',
+          'regularMarketChangePercent', 'regularMarketPrice', 'regularMarketDayHigh', 'regularMarketDayRange', 'regularMarketDayLow', 'regularMarketPreviousClose', 'epsCurrentYear', 'currency', 'bid',
+          'ask', 'regularMarketVolume', 'averageAnalystRating', 'marketCap', 'shortName', 'longName','messageBoardId', 'exchangeTimezoneName', 'exchangeTimezoneShortName', 'market', 'displayName', 'symbol');
+      foreach($json->quoteResponse->result as $company){
+
+        foreach($company as $key => $value){
+          if(in_array($key, $data)){
+                echo("<p> index : {$key} ___________ resultat : {$value} </p>");
+          }
+        }
+      }
     }
   }
 
@@ -57,37 +67,32 @@ class Controller{
         else{
           $motRecherche = urlencode($company);
           /// Ajouter votre X-RapidAPI-Key dans le fichier src/control/API_Key
-          $opts = array('http'=>array('method'=>"GET",'header'=>"X-RapidAPI-Key: " . file_get_contents("src/control/API_Key.txt")));
+          $opts = array('http'=>array('method'=>"GET",'header'=>"x-api-key: " . file_get_contents("src/control/API_Key.txt")));
           $context = stream_context_create($opts);
-          $url ="https://yh-finance.p.rapidapi.com/auto-complete?q=".$motRecherche;
+          $url ="https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=".$motRecherche;
           $raw = file_get_contents($url, false, $context);
           $json = json_decode($raw);
-          if(!empty($json->quotes)) {
-            foreach($json->quotes as $value){
-              $request = $this->storage->getDb()->prepare("INSERT INTO company (exchange, longname, shortname, symbol, find_with) VALUES (:exchange, :longname, :shortname, :symbol, :find_with)");
+          //var_dump($json->ResultSet->Result);
+          if(!empty($json->ResultSet->Result)) {
+            foreach($json->ResultSet->Result as $value){
+              $request = $this->storage->getDb()->prepare("INSERT INTO company (exch, name, symbol, find_with) VALUES (:exch, :name, :symbol, :find_with)");
               try{
                 $this->verifArray($value);
-                $data = array('exchange' => $value->exchange, 'longname' => $value->longname, 'shortname' => $value->shortname, 'symbol' => $value->symbol, 'find_with' => $company);
+                $data = array('exch' => $value->exch, 'name' => $value->name, 'symbol' => $value->symbol, 'find_with' => $company);
               }
               catch(Exception $e){
                 $data = array();
-                if(property_exists($value, "exchange")){
-                  $data['exchange'] = $value->exchange;
+                if(property_exists($value, "exch")){
+                  $data['exch'] = $value->exch;
                 }
                 else{
-                  $data['exchange'] = "null";
+                  $data['exch'] = "null";
                 }
-                if(property_exists($value, "longname")){
-                  $data['longname'] = $value->longname;
-                }
-                else{
-                  $data['longname'] = "null";
-                }
-                if(property_exists($value, "shortname")){
-                  $data['shortname'] = $value->shortname;
+                if(property_exists($value, "name")){
+                  $data['name'] = $value->name;
                 }
                 else{
-                  $data['shortname'] = "null";
+                  $data['name'] = "null";
                 }
                 if(property_exists($value, "symbol")){
                   $data['symbol'] = $value->symbol;
@@ -112,7 +117,7 @@ class Controller{
       }
 
       public function verifArray($json){
-        if(!property_exists($json, "symbol")||!property_exists($json, "shortname")||!property_exists($json, "longname")||!property_exists($json, "exchange")){
+        if(!property_exists($json, "symbol")||!property_exists($json, "name")||!property_exists($json, "exch")){
           throw new Exception();
         }
       }
