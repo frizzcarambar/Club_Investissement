@@ -7,8 +7,10 @@ $home_page = "<nav class=\"menu_bar\">
   <nav class=\"menu-right\">
   <nav class=\"menu-top\">
   <form action=".$this->router->getVerificationCompany()." method=\"post\">
-    <input type=\"text\" name=\"company\">
-    <input type=\"submit\" value=\"Rechercher\"/>
+    <div class=\"recherche\">
+      <input type=\"text\" name=\"company\" placeholder=\"Search for Symbols or Company\">
+      <input type=\"submit\" value=\"Rechercher\"/>
+    </div>
   </form>
   <ul class=\"menu_connexion\">";
 if($_SESSION["connexion"] == null){

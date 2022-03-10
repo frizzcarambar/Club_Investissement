@@ -27,21 +27,39 @@
 }
 
 .menu-right{
+  display: flex;
   flex: 0.9;
   justify-content: space-between;
+  flex-direction: column;
 }
 
 .menu-top{
   display: flex;
   flex-direction: row;
-  flex: 0.4;
+  height: 40%;
   justify-content: space-between;
+}
+
+.menu-top form{
+  display: flex;
+  height: 100%;
+}
+
+.menu-top form .recherche{
+  display: flex;
+  height: 100%;
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+.menu-top form input:first-child{
+  width: 400px;
 }
 
 .menu_nav{
   display: flex;
   justify-content: space-around;
-  width: 400px;
+  height: 40%;
   list-style: none;
   border: 1px solid #f5001c;
   border-radius: 25px;
