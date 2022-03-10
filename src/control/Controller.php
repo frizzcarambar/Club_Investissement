@@ -29,6 +29,7 @@ class Controller{
             $tab[$key] = $value;
           }
         }
+        ksort($tab);
         $this->view->makeInformationPage($tab);
       }
     }
