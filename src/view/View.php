@@ -15,7 +15,7 @@ class View{
 
   public function makeAccueilPage(array $resultat_recherche = null){
     $this->title = "Test";
-    $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/homeStyle.css\" type=\"text/css\">
+    $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/home_Style.css\" type=\"text/css\">
                     <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">
                     <link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\">";
     include "all_page/home.php";
@@ -23,7 +23,7 @@ class View{
     if($resultat_recherche!=null){
       $this->content .= "<br><table>
                             <tr>
-                              <th>Shortname</th>
+                              <th>Name</th>
                               <th>Exchange</th>
                               <th>Symbol</th>
                             </tr>";
@@ -38,7 +38,7 @@ class View{
 
   public function makeConnexionPage(UsersBuilder $data){
     $this->title = "Connexion";
-    $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/home_style.css\" type=\"text/css\">
+    $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/home_Style.css\" type=\"text/css\">
                     <link rel=\"stylesheet\" href=\"src/all_page/connexion.css\" type=\"text/css\">
                     ";
     include "all_page/home.php";
@@ -51,6 +51,30 @@ class View{
     $this->content = $this->content . "</form>";
     $this->renderSquelette();
   }
+
+  public function makeInformationPage($data){
+    $this->title = "informations";
+    $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/home_Style.css\" type=\"text/css\">
+                    <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">
+                    ";
+
+    include "all_page/home.php";
+    $this->content = $home_page;
+    $this->content .= "<br><table>";
+    foreach($data as $key => $value){
+      $this->content .= "<tr>
+                          <td>
+                            {$key}
+                          </td>
+                          <td>
+                            {$value}
+                          </td>
+                        </tr>";
+    }
+    $this->content .= "</table>";
+    $this->renderSquelette();
+  }
+
 
   public function makeDebugPage($variable) {
     $this->renderNav();

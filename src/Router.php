@@ -32,7 +32,7 @@ class Router{
         $controller->verificationCompany($_POST["company"]);
       }
     }
-    else{
+    if(!isset($_GET["company"]) && !isset($_GET["action"])){
       $controller->showInformation(null);
     }
   }
