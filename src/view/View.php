@@ -72,6 +72,7 @@ class View{
                         </tr>";
     }
     $this->content .= "</table>";
+    $this->content .= "<script src=\"src/all_page/home_script.js\"></script>";
     $this->renderSquelette();
   }
 

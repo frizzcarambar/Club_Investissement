@@ -54,9 +54,9 @@
 #button_connexion, #button_deconnexion{
   width: 100px;
   height: 100%;
-  border: 1px solid ##f5001c;
+  border: 1px solid #f5001c;
   border-radius: 25px;
-  background-color: ##f5001c;
+  background-color: #f5001c;
   opacity: 0.60;
   color: white;
 }
