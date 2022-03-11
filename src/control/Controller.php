@@ -68,7 +68,7 @@ class Controller{
         }
         else{
           $motRecherche = urlencode($company);
-          /// Ajouter votre X-RapidAPI-Key dans le fichier src/control/API_Key
+          /// Ajouter votre api-key de yahoo-finance dans le fichier src/control/API_Key
           $opts = array('http'=>array('method'=>"GET",'header'=>"x-api-key: " . file_get_contents("src/control/API_Key.txt")));
           $context = stream_context_create($opts);
           $url ="https://yfapi.net/v6/finance/autocomplete?region=US&lang=en&query=".$motRecherche;

@@ -14,8 +14,8 @@ class View{
   }
 
   public function makeAccueilPage(array $resultat_recherche = null){
-    $this->title = "Test";
-    $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/home_Style.css\" type=\"text/css\">
+    $this->title = "IUP BFA CAEN INVEST CLUB";
+    $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/homeStyle.css\" type=\"text/css\">
                     <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">
                     <link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\">";
     include "all_page/home.php";
@@ -37,8 +37,8 @@ class View{
   }
 
   public function makeConnexionPage(UsersBuilder $data){
-    $this->title = "Connexion";
-    $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/home_Style.css\" type=\"text/css\">
+    $this->title = "IUP BFA CAEN INVEST CLUB";
+    $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/homeStyle.css\" type=\"text/css\">
                     <link rel=\"stylesheet\" href=\"src/all_page/connexion.css\" type=\"text/css\">
                     ";
     include "all_page/home.php";
@@ -53,8 +53,8 @@ class View{
   }
 
   public function makeInformationPage($data){
-    $this->title = "informations";
-    $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/home_Style.css\" type=\"text/css\">
+    $this->title = "IUP BFA CAEN INVEST CLUB";
+    $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/homeStyle.css\" type=\"text/css\">
                     <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">
                     ";
 
