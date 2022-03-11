@@ -14,6 +14,9 @@ class Router{
     $view = new View($this);
     $storage = new Database();
     $controller = new Controller($view, $storage);
+    /*if(isset($_GET["portfeuille"]) && $_SESSION["connexion"]!=null){
+      $console.
+    }*/
     if(isset($_GET["company"])){
       $controller->showInformation($_GET["company"]);
     }
@@ -29,7 +32,12 @@ class Router{
         $this->PostRedirect("index.php");
       }
       else if($_GET["action"] == "verificationCompany"){
-        $controller->verificationCompany($_POST["company"]);
+        if(isset($_POST["companys"])){
+          $controller->verificationCompany($_POST["companys"]);
+        }
+        else{
+          $controller->showInformation(null);
+        }
       }
     }
     if(!isset($_GET["company"]) && !isset($_GET["action"])){

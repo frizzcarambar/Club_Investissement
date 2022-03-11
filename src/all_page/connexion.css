@@ -50,3 +50,14 @@ body::before{
   border-radius: 24px;
   cursor:pointer;
 }
+
+#form_connexion .close{
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 25%;
+  transform: scale(2);
+  transform: translate(-50%, 50%);
+}

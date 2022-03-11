@@ -16,8 +16,7 @@ class View{
   public function makeAccueilPage(array $resultat_recherche = null){
     $this->title = "IUP BFA CAEN INVEST CLUB";
     $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/homeStyle.css\" type=\"text/css\">
-                    <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">
-                    <link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\">";
+                    <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">";
     include "all_page/home.php";
     $this->content .= $home_page;
     if($resultat_recherche!=null){
