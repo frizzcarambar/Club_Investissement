@@ -17,10 +17,16 @@ class Router{
     /*if(isset($_GET["portfeuille"]) && $_SESSION["connexion"]!=null){
       $console.
     }*/
-    if(isset($_GET["company"])){
+    if(isset($_GET["calendar"])){
+      $view->makeCalendarPage();
+    }
+    else if(!isset($_GET["company"]) && !isset($_GET["action"])){
+      $controller->showInformation(null);
+    }
+    else if(isset($_GET["company"])){
       $controller->showInformation($_GET["company"]);
     }
-    if(isset($_GET["action"])){
+    else if(isset($_GET["action"])){
       if($_GET["action"] == "connexion"){
         $view->makeConnexionPage(new UsersBuilder(array("pseudo"=>"", "nom"=>"", "prenom"=>"", "password"=>""), $storage));
       }
@@ -39,9 +45,6 @@ class Router{
           $controller->showInformation(null);
         }
       }
-    }
-    if(!isset($_GET["company"]) && !isset($_GET["action"])){
-      $controller->showInformation(null);
     }
   }
 

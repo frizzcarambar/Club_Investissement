@@ -19,7 +19,7 @@ if($_SESSION["connexion"] == null){
                  </ul></nav>
                  <ul class=\"menu_nav\">
                   <li><a href=\"#\">NewsLetters</a></li>
-                  <li><a href=\"#\">Calendrier</a></li>
+                  <li><a href=\"index.php?calendar\">Calendrier</a></li>
                   <li><a href=\"#\">Footer</a></li>
                  </ul>
                  </nav>
