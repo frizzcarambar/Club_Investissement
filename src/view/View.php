@@ -56,11 +56,38 @@ class View{
     $this->title = "IUP BFA CAEN INVEST CLUB";
     $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/homeStyle.css\" type=\"text/css\">
                     <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">
-                    ";
+                    <link rel=\"stylesheet\" href=\"src/all_page/tableau_portefeuille.css\" type=\"text/css\">";
 
     include "all_page/home.php";
     $this->content = $home_page;
-    $this->content .= "<br><table>";
+    $this->content .= "<br><div class=\"parent\">
+                           <div class=\"bandeau\" style=\"background-color:red\"> </div>
+                           <div class=\"info_Gauche\">
+                              <h3> {$data["shortName"]} ({$data["symbol"]}) </h3>
+                              <span> {$data["ask"]} {$data["currency"]} </span>
+                              <br>
+                              <span>" . round($data["regularMarketChangePercent"], 2). " % </span>
+                           </div>
+                           <div class=\"info_Droite\">
+                              <ul>
+                                <li> <p> OUVERTURE </p> <span> {$data["regularMarketOpen"]} </span> </li>
+                                <li> <p> CLOTURE VEILLE </p> <span> {$data["regularMarketPreviousClose"]} </span> </li>
+                                <li> <p> PLUS HAUT </p> <span> {$data["regularMarketDayHigh"]} </span> </li>
+                                <li> <p> PLUS BAS </p> <span> {$data["regularMarketDayLow"]} </span> </li>
+                              </ul>
+                           </div>
+                           <div class=\"info_Bas\">
+                             <ul>
+                               <li> <p> VALORISATION </p> <span> {$data["marketCap"]} </span> </li>
+                               <li> <p> LIMITE  </p> <span> {$data["regularMarketPreviousClose"]} </span> </li>
+                               <li> <p> PLUS HAUT </p> <span> {$data["regularMarketDayHigh"]} </span> </li>
+                               <li> <p> PLUS BAS </p> <span> {$data["regularMarketDayLow"]} </span> </li>
+                             </ul>
+                           </div>
+                           <div class=\"graphique\">
+                              <p> </p>
+                           </div>
+                       </div> <table>";
     foreach($data as $key => $value){
       $this->content .= "<tr>
                           <td>
@@ -83,24 +110,15 @@ class View{
     include "all_page/home.php";
     $this->content .= $home_page;
     $this->content .="<iframe src=\"https://calendar.google.com/calendar/embed?src=mshmv9kb1ksr86iijff1vh3apg%40group.calendar.google.com&ctz=Europe%2FParis\" style=\"border: 0\" width=\"800\" height=\"600\" frameborder=\"0\" scrolling=\"no\"></iframe>";
-    if($resultat_recherche!=null){
-      $this->content .= "<br><table>
-                            <tr>
-                              <th>Name</th>
-                              <th>Exchange</th>
-                              <th>Symbol</th>
-                            </tr>";
-      foreach($resultat_recherche as $value){
-        $this->content .= "<tr><td><a href=\"index.php?company={$value["symbol"]}\"><b>{$value["name"]}</b></a></td>><td>{$value["exch"]}</td>><td>{$value["symbol"]}</td></tr>";
-      }
-      $this->content .= "</table>";
-    }
+    $this->content .= "<script src=\"src/all_page/home_script.js\"></script>";
+    $this->renderSquelette();
   }
 
   public function makePortefeuillePage($data){
     $this->title = "IUP BFA CAEN INVEST CLUB";
     $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/homeStyle.css\" type=\"text/css\">
                     <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">";
+
     include "all_page/home.php";
     $this->content .= $home_page;
     $this->content .= "<h2 style=\"margin-top:25px\">Votre portefeuille :</h2><br>
