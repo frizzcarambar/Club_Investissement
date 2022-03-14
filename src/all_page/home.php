@@ -29,7 +29,7 @@ else{
   $home_page .= "<button id=\"button_deconnexion\"><a href=". $this->router->getDeconnexionURL() .">Deconnexion</a></button>
                  </ul></nav>
                  <ul class=\"menu_nav\">
-                  <li><a href=\"index.php?portfeuille\">Portfeuille</a></li>
+                  <li><a href=\"index.php?portefeuille\">Portefeuille</a></li>
                   <li><a href=\"#\">NewsLetters</a></li>
                   <li><a href=\"#\">Calendrier</a></li>
                   <li><a href=\"#\">Footer</a></li>

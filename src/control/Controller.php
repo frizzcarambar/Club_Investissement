@@ -36,7 +36,6 @@ class Controller{
   }
 
       public function verificationconnexion(array $data){
-        var_dump($data);
         $requete = $this->storage->getDb()->prepare('SELECT * FROM Users WHERE mail = :mail && password = :password');
         $requete->execute(array(':mail' => $data["mail"], ':password' => $data["password"]));
         $users = $requete->fetch();
@@ -122,6 +121,36 @@ class Controller{
         if(!property_exists($json, "symbol")||!property_exists($json, "name")||!property_exists($json, "exch")){
           throw new Exception();
         }
+      }
+
+      public function showPortefeuille($action = null){
+        if($action!=null){
+          if($action["action"]=="achat"){
+            $requete = $this->storage->getDb()->prepare('INSERT INTO action (symbol, date_achat, prix_achat, nombre) VALUES (:symbol, :date_achat, :prix_achat, :nombre)');
+            $requete->execute(array('symbol'=>$action["symbol"], 'date_achat'=>date("Y-m-d"), 'nombre'=>$action["nbr"], 'prix_achat'=>$action["prix"]));
+          }
+          else{
+            $requete = $this->storage->getDb()->prepare('DELETE FROM action WHERE symbol = :symbols');
+            $requete->execute(array('symbols'=>$action["symbol"]));
+          }
+        }
+        $data = array();
+        $requete = $this->storage->getDb()->prepare('SELECT starting_money, current_money FROM portefeuille');
+        $requete->execute();
+        $resultat = $requete->fetch();
+        $data["starting_money"] = floatval($resultat["starting_money"]);
+        $data["current_money"] = floatval($resultat["current_money"]);
+        if($action!=null){
+          $new_money = $data["current_money"]-($action["nbr"]*$action["prix"]);
+          $data["current_money"]=$new_money;
+          $requete = $this->storage->getDb()->prepare('UPDATE portefeuille SET current_money= :new_money WHERE idPortefeuille = 1');
+          $requete->execute(array('new_money'=>$new_money));
+        }
+        $requete = $this->storage->getDb()->prepare('SELECT * FROM action');
+        $requete->execute();
+        $all_action = $requete->fetch();
+        $data["action"]=$all_action;
+        $this->view->makePortefeuillePage($data);
       }
 
 }

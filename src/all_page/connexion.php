@@ -1,10 +1,10 @@
 <?php
 
-$connexion_page ="<form action=" .$this->router->getVerifyConnexionURL() . " method=\"post\">
+$connexion_page ="<form id=\"form_connexion\" action=" .$this->router->getVerifyConnexionURL() . " method=\"post\">
     <h1>Login</h1>
     <input type=\"text\" id=\"Mail\" name=\"".$data::MAIL_REF."\" placeholder=\"Mail\">
     <input type=\"password\" id=\"password\" name=\"".$data::PASSWORD_REF."\" placeholder=\"Password\">
     <input type=\"submit\" value=\"Login\"/>
-    <a id=\"quit\">Quit</a>
+    <span class=\"close material-icons\">close</span>
 "
 ?>

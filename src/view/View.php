@@ -48,6 +48,7 @@ class View{
       $this->content = $this->content . "<p>" . $data->getError() . "</p>";
     }
     $this->content = $this->content . "</form>";
+    $this->content .= "<script src=\"src/all_page/home_script.js\"></script>";
     $this->renderSquelette();
   }
 
@@ -74,7 +75,6 @@ class View{
     $this->content .= "<script src=\"src/all_page/home_script.js\"></script>";
     $this->renderSquelette();
   }
-
   public function makeCalendarPage(array $resultat_recherche = null){
     $this->title = "IUP BFA CAEN INVEST CLUB";
     $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/homeStyle.css\" type=\"text/css\">
@@ -95,6 +95,31 @@ class View{
       }
       $this->content .= "</table>";
     }
+
+  public function makePortefeuillePage($data){
+    $this->title = "IUP BFA CAEN INVEST CLUB";
+    $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/homeStyle.css\" type=\"text/css\">
+                    <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">";
+    include "all_page/home.php";
+    $this->content .= $home_page;
+    $this->content .= "<h2 style=\"margin-top:25px\">Votre portefeuille :</h2><br>
+                       <p>Votre solde de début: {$data["starting_money"]}</p>
+                       <p>Votre solde actuel: {$data["current_money"]}</p>
+                       <p>Progression de " . $data["current_money"]/$data["starting_money"]*100 ."%.</p><br>
+                       <form action=".$this->router->getPortefeuilleURL()." method=\"post\">
+                         <div>Ajouter des action au portefeuille</div>
+                         <input type=\"text\" name=\"symbol_action\" placeholder=\"Symbol de l'entreprise\" required>
+                         <input type=\"text\" name=\"nbr_action\" placeholder=\"Nombre d'action\" required>
+                         <input type=\"text\" name=\"prix_action\" placeholder=\"Prix de l'action\" required>
+                         <button name=\"ajout\" type=\"submit\">Ajouter</button>
+                       </form>
+                       <form action=".$this->router->getPortefeuilleURL()." method=\"post\">
+                         <div>Vendre des action du portefeuille</div>
+                         <input type=\"text\" name=\"symbol_action\" placeholder=\"Symbol de l'entreprise\" required>
+                         <input type=\"text\" name=\"nbr_action\" placeholder=\"Nombre d'action\" required>
+                         <input type=\"text\" name=\"prix_action\" placeholder=\"Prix de l'action\" required>
+                         <button name=\"vendre\" type=\"submit\">Vendre</button>
+                       </form>";
     $this->content .= "<script src=\"src/all_page/home_script.js\"></script>";
     $this->renderSquelette();
   }

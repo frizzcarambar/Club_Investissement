@@ -20,7 +20,6 @@ connexion.click(function(){
   $('body').prepend("<form id=\"form_connexion\" action=\"index.php?action=verifyconnexion\" method=\"post\"><h1>Login</h1><input type=\"text\" id=\"Mail\" name=\"mail\" placeholder=\"Mail\"><input type=\"password\" id=\"password\" name=\"password\" placeholder=\"Password\"><input type=\"submit\" value=\"Login\"/><span class=\"close material-icons\">close</span></form>");
   let quit = document.querySelector(".close");
   quit.addEventListener("click", function(){
-    console.log("test");
     $("#form_connexion").remove();
     $("link").last().remove();
   });
