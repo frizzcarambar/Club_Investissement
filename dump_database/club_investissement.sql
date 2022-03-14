@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 11, 2022 at 09:21 AM
+-- Generation Time: Mar 14, 2022 at 03:29 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -25,14 +25,34 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `company`
+-- Table structure for table `action`
 --
 
-DROP TABLE IF EXISTS company;
+DROP TABLE IF EXISTS `action`;
+DROP TABLE IF EXISTS `company`;
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `portefeuille`;
+DROP TABLE IF EXISTS `transaction`;
 
-DROP TABLE IF EXISTS transaction;
+CREATE TABLE `action` (
+  `symbol` varchar(32) NOT NULL,
+  `date_achat` date NOT NULL,
+  `prix_achat` float NOT NULL,
+  `nombre` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS users;
+--
+-- Dumping data for table `action`
+--
+
+INSERT INTO `action` (`symbol`, `date_achat`, `prix_achat`, `nombre`) VALUES
+('TSLA', '2022-03-11', 50, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company`
+--
 
 CREATE TABLE `company` (
   `idCompany` int(11) NOT NULL,
@@ -97,7 +117,60 @@ INSERT INTO `company` (`idCompany`, `exch`, `name`, `symbol`, `find_with`) VALUE
 (48, 'STU', 'Ubisoft Entertainment S.A.', 'UEN.SG', 'ubisoft'),
 (49, 'FRA', 'Ubisoft Entertainment SA', 'UEN.F', 'ubisoft'),
 (50, 'MEX', 'Ubisoft Entertainment SA', 'UBIN.MX', 'ubisoft'),
-(51, 'BER', 'UBISOFT ENTMT IN.EO-,0775', 'UEN.BE', 'ubisoft');
+(51, 'BER', 'UBISOFT ENTMT IN.EO-,0775', 'UEN.BE', 'ubisoft'),
+(52, 'NMS', 'Tesla, Inc.', 'TSLA', 'tesla'),
+(53, 'PNK', 'Tesla Exploration Ltd.', 'TXLZF', 'tesla'),
+(54, 'NEO', 'Tesla, Inc.', 'TSLA.NE', 'tesla'),
+(55, 'GER', 'Tesla, Inc.', 'TL0.DE', 'tesla'),
+(56, 'MEX', 'Tesla, Inc.', 'TSLA.MX', 'tesla'),
+(57, 'LSE', 'Leverage Shares 3x Tesla ETP', 'TSL3.L', 'tesla'),
+(58, 'FRA', 'Tesla, Inc.', 'TL0.F', 'tesla'),
+(59, 'BUE', 'Tesla, Inc.', 'TSLA.BA', 'tesla'),
+(60, 'LSE', 'Graniteshares Financial PLC - 3X Long Tesla Daily ETP', '3LTS.L', 'tesla'),
+(61, 'STU', 'Nestle S.A. (ADRs)', 'NESM.SG', 'nestle'),
+(62, 'NSI', 'Nestlé India Limited', 'NESTLEIND.NS', 'nestle'),
+(63, 'BSE', 'Nestlé India Limited', 'NESTLEIND.BO', 'nestle'),
+(64, 'CSE', 'NESTLE LANKA', 'NESTN0000.CM', 'nestle'),
+(65, 'BER', 'NESTLE NAM. ADR/1 SF 1', 'NESM.BE', 'nestle'),
+(66, 'DUS', 'NESTLE NAM. ADR/1 SF 1', 'NESM.DU', 'nestle'),
+(67, 'MUN', 'NESTLE NAM. ADR/1 SF 1', 'NESM.MU', 'nestle'),
+(68, 'PNK', 'Samsung Global Mid-term Master ', '0P0001H7NH', 'samsung'),
+(69, 'PNK', 'Samsung Dollar Short-term Bond ', '0P00016O32', 'samsung'),
+(70, 'PNK', 'Samsung Dollar Denominated US I', '0P0001N9KC', 'samsung'),
+(71, 'PNK', 'Samsung Dollar Short-term Bond ', '0P0001LJEX', 'samsung'),
+(72, 'PNK', 'Samsung Dollar Denominated US I', '0P0001N5AX', 'samsung'),
+(73, 'PNK', 'Samsung Dollar Denominated US I', '0P0001N9QI', 'samsung'),
+(74, 'PNK', 'Samsung Dollar Short-term Bond ', '0P0001LGXU', 'samsung'),
+(75, 'PNK', 'Samsung Dollar Short-term Bond ', '0P000179GJ', 'samsung'),
+(76, 'PNK', 'Samsung Global Mid Short-term M', '0P0001H7NG', 'samsung'),
+(77, 'PNK', 'Samsung Dollar Denominated US I', '0P0001NG37', 'samsung'),
+(78, 'NMS', 'Tesla, Inc.', 'TSLA', 'tsla'),
+(79, 'NAS', 'Transamerica Small Cap Value A', 'TSLAX', 'tsla'),
+(80, 'NEO', 'Tesla, Inc.', 'TSLA.NE', 'tsla'),
+(81, 'MEX', 'Tesla, Inc.', 'TSLA.MX', 'tsla'),
+(82, 'BUE', 'Tesla, Inc.', 'TSLA.BA', 'tsla'),
+(83, 'SAO', 'Tesla, Inc.', 'TSLA34.SA', 'tsla'),
+(84, 'MIL', 'Tesla, Inc.', 'TSLA.MI', 'tsla'),
+(85, 'VIE', 'Tesla, Inc.', 'TSLA.VI', 'tsla');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `portefeuille`
+--
+
+CREATE TABLE `portefeuille` (
+  `idPortefeuille` int(11) NOT NULL,
+  `starting_money` float NOT NULL,
+  `current_money` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `portefeuille`
+--
+
+INSERT INTO `portefeuille` (`idPortefeuille`, `starting_money`, `current_money`) VALUES
+(1, 250, 150);
 
 -- --------------------------------------------------------
 
@@ -137,10 +210,22 @@ INSERT INTO `users` (`idUsers`, `mail`, `password`, `role`) VALUES
 --
 
 --
+-- Indexes for table `action`
+--
+ALTER TABLE `action`
+  ADD PRIMARY KEY (`symbol`);
+
+--
 -- Indexes for table `company`
 --
 ALTER TABLE `company`
   ADD PRIMARY KEY (`idCompany`);
+
+--
+-- Indexes for table `portefeuille`
+--
+ALTER TABLE `portefeuille`
+  ADD PRIMARY KEY (`idPortefeuille`);
 
 --
 -- Indexes for table `transaction`
@@ -162,7 +247,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `idCompany` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `idCompany` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+
+--
+-- AUTO_INCREMENT for table `portefeuille`
+--
+ALTER TABLE `portefeuille`
+  MODIFY `idPortefeuille` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `transaction`
