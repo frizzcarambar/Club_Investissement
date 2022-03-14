@@ -14,13 +14,24 @@ class Router{
     $view = new View($this);
     $storage = new Database();
     $controller = new Controller($view, $storage);
-    /*if(isset($_GET["portfeuille"]) && $_SESSION["connexion"]!=null){
-      $console.
-    }*/
-    if(isset($_GET["company"])){
+    if(isset($_GET["portefeuille"]) && $_SESSION["connexion"]!=null){
+      if(isset($_POST["ajout"])){
+        $controller->showPortefeuille(array("action"=>"achat", "symbol"=>$_POST["symbol_action"], "nbr"=>$_POST["nbr_action"], "prix"=>$_POST["prix_action"]));
+      }
+      else if(isset($_POST["ajout"])){
+        $controller->showPortefeuille(array("action"=>"vente", "symbol"=>$_POST["symbol_action"], "nbr"=>$_POST["nbr_action"], "prix"=>$_POST["prix_action"]));
+      }
+      else{
+        $controller->showPortefeuille();
+      }
+    }
+    else if(!isset($_GET["company"]) && !isset($_GET["action"])){
+      $controller->showInformation(null);
+    }
+    else if(isset($_GET["company"])){
       $controller->showInformation($_GET["company"]);
     }
-    if(isset($_GET["action"])){
+    else if(isset($_GET["action"])){
       if($_GET["action"] == "connexion"){
         $view->makeConnexionPage(new UsersBuilder(array("pseudo"=>"", "nom"=>"", "prenom"=>"", "password"=>""), $storage));
       }
@@ -40,9 +51,7 @@ class Router{
         }
       }
     }
-    if(!isset($_GET["company"]) && !isset($_GET["action"])){
-      $controller->showInformation(null);
-    }
+
   }
 
   function getCompanyURL(){
@@ -63,6 +72,10 @@ class Router{
 
   function getVerificationCompany(){
     return "index.php?action=verificationCompany";
+  }
+
+  function getPortefeuilleURL(){
+    return "index.php?portefeuille";
   }
 
   function POSTredirect($url, $list = null){
