@@ -95,6 +95,7 @@ class View{
       }
       $this->content .= "</table>";
     }
+  }
 
   public function makePortefeuillePage($data){
     $this->title = "IUP BFA CAEN INVEST CLUB";
