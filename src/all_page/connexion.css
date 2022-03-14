@@ -21,7 +21,7 @@ body::before{
   border-radius: 5px;
   z-index: 1000;
   text-align: center;
-  background-color: #BEBEBE;
+  background-color: #BEBEBE; 
 }
 
 #form_connexion input[type="text"], #form_connexion input[type="password"]{
