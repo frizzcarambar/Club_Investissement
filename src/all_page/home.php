@@ -31,7 +31,7 @@ else{
                  <ul class=\"menu_nav\">
                   <li><a href=\"index.php?portefeuille\">Portefeuille</a></li>
                   <li><a href=\"#\">NewsLetters</a></li>
-                  <li><a href=\"#\">Calendrier</a></li>
+                  <li><a href=\"index.php?calendar\">Calendrier</a></li>
                   <li><a href=\"#\">Footer</a></li>
                  </ul>
                  </nav>
