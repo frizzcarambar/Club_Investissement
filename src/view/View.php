@@ -64,7 +64,7 @@ class View{
                            <div class=\"bandeau\" style=\"background-color:red\"> </div>
                            <div class=\"info_Gauche\">
                               <h3> {$data["shortName"]} ({$data["symbol"]}) </h3>
-                              <span> {$data["ask"]} {$data["currency"]} </span>
+                              <span> {$data["regularMarketPrice"]} {$data["currency"]} </span>
                               <br>
                               <span>" . round($data["regularMarketChangePercent"], 2). " % </span>
                            </div>
@@ -78,10 +78,12 @@ class View{
                            </div>
                            <div class=\"info_Bas\">
                              <ul>
+                               <li> <p> Long Name </p> <span> {$data["longName"]} </span> </li>
+                               <li> <p> Exchange Name </p> <span> {$data["fullExchangeName"]} </span> </li>
+                               <li> <p> Exchange Time Zone </p> <span> {$data["exchangeTimezoneName"]} </span> </li>
                                <li> <p> VALORISATION </p> <span> {$data["marketCap"]} </span> </li>
-                               <li> <p> LIMITE  </p> <span> {$data["regularMarketPreviousClose"]} </span> </li>
-                               <li> <p> PLUS HAUT </p> <span> {$data["regularMarketDayHigh"]} </span> </li>
-                               <li> <p> PLUS BAS </p> <span> {$data["regularMarketDayLow"]} </span> </li>
+                               <li> <p> VOLUME  </p> <span> {$data["regularMarketVolume"]} </span> </li>
+                               <li> <p> regularDayRange </p> <span> {$data["regularMarketDayRange"]} </span> </li>
                              </ul>
                            </div>
                            <div class=\"graphique\">
