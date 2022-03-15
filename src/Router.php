@@ -14,13 +14,10 @@ class Router{
     $view = new View($this);
     $storage = new Database();
     $controller = new Controller($view, $storage);
-    /*if(isset($_GET["portfeuille"]) && $_SESSION["connexion"]!=null){
-      $console.
-    }*/
     if(isset($_GET["calendar"])){
       $view->makeCalendarPage();
     }
-    if(isset($_GET["portefeuille"]) && $_SESSION["connexion"]!=null){
+    else if(isset($_GET["portefeuille"]) && $_SESSION["connexion"]!=null){
       if(isset($_POST["ajout"])){
         $controller->showPortefeuille(array("action"=>"achat", "symbol"=>$_POST["symbol_action"], "nbr"=>$_POST["nbr_action"], "prix"=>$_POST["prix_action"]));
       }

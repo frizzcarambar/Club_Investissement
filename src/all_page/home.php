@@ -15,7 +15,7 @@ $home_page = "<nav class=\"menu_bar\">
   </form>
   <ul class=\"menu_connexion\">";
 if($_SESSION["connexion"] == null){
-  $home_page .= "<button id=\"button_connexion\">Connexion</button>
+  $home_page .= "<button id=\"button_connexion\"></button>
                  </ul></nav>
                  <ul class=\"menu_nav\">
                   <li><a href=\"#\">NewsLetters</a></li>
