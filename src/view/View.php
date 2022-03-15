@@ -109,7 +109,7 @@ class View{
                     <link rel=\"stylesheet\" href=\"src/all_page/calendar.css\" type=\"text/css\">";
     include "all_page/home.php";
     $this->content .= $home_page;
-    $this->content .="<iframe src=\"https://calendar.google.com/calendar/embed?src=mshmv9kb1ksr86iijff1vh3apg%40group.calendar.google.com&ctz=Europe%2FParis\" style=\"border: 0\" width=\"800\" height=\"600\" frameborder=\"0\" scrolling=\"no\"></iframe>";
+    $this->content .="<iframe src=\"https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23d7324f&ctz=Europe%2FParis&showPrint=0&showCalendars=0&showNav=0&showDate=1&showTz=0&mode=WEEK&src=bXNobXY5a2Ixa3NyODZpaWpmZjF2aDNhcGdAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%23D50000\" style=\"border:solid 1px #777\" width=\"800\" height=\"600\" frameborder=\"0\" scrolling=\"no\"></iframe>";
     $this->content .= "<script src=\"src/all_page/home_script.js\"></script>";
     $this->renderSquelette();
   }
