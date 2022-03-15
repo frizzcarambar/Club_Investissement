@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 14, 2022 at 03:29 PM
+-- Generation Time: Mar 15, 2022 at 12:33 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -27,12 +27,6 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `action`
 --
-
-DROP TABLE IF EXISTS `action`;
-DROP TABLE IF EXISTS `company`;
-DROP TABLE IF EXISTS `users`;
-DROP TABLE IF EXISTS `portefeuille`;
-DROP TABLE IF EXISTS `transaction`;
 
 CREATE TABLE `action` (
   `symbol` varchar(32) NOT NULL,
@@ -151,7 +145,19 @@ INSERT INTO `company` (`idCompany`, `exch`, `name`, `symbol`, `find_with`) VALUE
 (82, 'BUE', 'Tesla, Inc.', 'TSLA.BA', 'tsla'),
 (83, 'SAO', 'Tesla, Inc.', 'TSLA34.SA', 'tsla'),
 (84, 'MIL', 'Tesla, Inc.', 'TSLA.MI', 'tsla'),
-(85, 'VIE', 'Tesla, Inc.', 'TSLA.VI', 'tsla');
+(85, 'VIE', 'Tesla, Inc.', 'TSLA.VI', 'tsla'),
+(86, 'PNK', 'Air France-KLM SA', 'AFLYY', 'air france'),
+(87, 'PNK', 'Air France-KLM SA', 'AFRAF', 'air france'),
+(88, 'PAR', 'Air France-KLM SA', 'AF.PA', 'air france'),
+(89, 'VIE', 'Air France-KLM SA', 'AIRF.VI', 'air france'),
+(90, 'TLO', 'AIR FRANCE KLM', 'AIRF-U.TI', 'air france'),
+(91, 'DUS', 'AIR FRANCE-KLM', 'AFR.DU', 'air france'),
+(92, 'BER', 'AIR FRANCE-KLM ADR EO 8,5', 'FQZ.BE', 'air france'),
+(93, 'MUN', 'AIR FRANCE-KLM ADR EO 8,5', 'FQZ.MU', 'air france'),
+(94, 'FRA', 'Air France-KLM SA', 'AFR.F', 'air france'),
+(95, 'MIL', 'Air France-KLM SA', 'AF.MI', 'air france'),
+(96, 'NMS', 'Alphabet Inc.', 'GOOG', 'google'),
+(97, 'WCB', 'CBOE EQUITY VIXON GOOGLE', '^VXGOG', 'google');
 
 -- --------------------------------------------------------
 
@@ -195,7 +201,7 @@ CREATE TABLE `users` (
   `idUsers` int(11) NOT NULL,
   `mail` varchar(256) NOT NULL,
   `password` varchar(256) NOT NULL,
-  `role` int(11) NOT NULL DEFAULT '0'
+  `role` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -203,7 +209,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idUsers`, `mail`, `password`, `role`) VALUES
-(1, 'admin', 'test', 0);
+(1, 'admin', 'test', 'admin'),
+(2, 'analyst', 'test', 'analyst'),
+(4, 'com', 'test', 'communication'),
+(5, 'membre', 'test', 'membre');
 
 --
 -- Indexes for dumped tables
@@ -247,7 +256,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `idCompany` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `idCompany` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `portefeuille`
@@ -265,7 +274,7 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `idUsers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idUsers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

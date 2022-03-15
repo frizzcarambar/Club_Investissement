@@ -19,6 +19,7 @@
   font-size: 16px;
 }
 
+
 .logo{
   height: 100%;
 }
@@ -70,11 +71,12 @@
   justify-content: space-around;
   height: 40%;
   list-style: none;
-  border: 1px solid #d7324f;
+  border: 1px solid black;
   border-radius: 25px;
   background-color: #d7324f;
   align-items: center;
   font-size: 13.333px;
+
 }
 
 #button_connexion, #button_deconnexion{

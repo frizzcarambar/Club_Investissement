@@ -124,21 +124,26 @@ class View{
     $this->content .= "<h2 style=\"margin-top:25px\">Votre portefeuille :</h2><br>
                        <p>Votre solde de début: {$data["starting_money"]}</p>
                        <p>Votre solde actuel: {$data["current_money"]}</p>
-                       <p>Progression de " . $data["current_money"]/$data["starting_money"]*100 ."%.</p><br>
-                       <form action=".$this->router->getPortefeuilleURL()." method=\"post\">
-                         <div>Ajouter des action au portefeuille</div>
-                         <input type=\"text\" name=\"symbol_action\" placeholder=\"Symbol de l'entreprise\" required>
-                         <input type=\"text\" name=\"nbr_action\" placeholder=\"Nombre d'action\" required>
-                         <input type=\"text\" name=\"prix_action\" placeholder=\"Prix de l'action\" required>
-                         <button name=\"ajout\" type=\"submit\">Ajouter</button>
-                       </form>
-                       <form action=".$this->router->getPortefeuilleURL()." method=\"post\">
-                         <div>Vendre des action du portefeuille</div>
-                         <input type=\"text\" name=\"symbol_action\" placeholder=\"Symbol de l'entreprise\" required>
-                         <input type=\"text\" name=\"nbr_action\" placeholder=\"Nombre d'action\" required>
-                         <input type=\"text\" name=\"prix_action\" placeholder=\"Prix de l'action\" required>
-                         <button name=\"vendre\" type=\"submit\">Vendre</button>
-                       </form>";
+                       <p>Progression de " . $data["current_money"]/$data["starting_money"]*100 ."%.</p><br>";
+    if($_SESSION["connexion"] == "admin" || $_SESSION["connexion"] == "analyst"){
+      $this->content .=
+        "<form action=".$this->router->getPortefeuilleURL()." method=\"post\">
+          <div>Ajouter des action au portefeuille</div>
+          <input type=\"text\" name=\"symbol_action\" placeholder=\"Symbol de l'entreprise\" required>
+          <input type=\"text\" name=\"nbr_action\" placeholder=\"Nombre d'action\" required>
+          <input type=\"text\" name=\"prix_action\" placeholder=\"Prix de l'action\" required>
+          <button name=\"ajout\" type=\"submit\">Ajouter</button>
+        </form>
+        <form action=".$this->router->getPortefeuilleURL()." method=\"post\">
+          <div>Vendre des action du portefeuille</div>
+          <input type=\"text\" name=\"symbol_action\" placeholder=\"Symbol de l'entreprise\" required>
+          <input type=\"text\" name=\"nbr_action\" placeholder=\"Nombre d'action\" required>
+          <input type=\"text\" name=\"prix_action\" placeholder=\"Prix de l'action\" required>
+          <button name=\"vendre\" type=\"submit\">Vendre</button>
+        </form>";
+
+    }
+
     $this->content .= "<script src=\"src/all_page/home_script.js\"></script>";
     $this->renderSquelette();
   }

@@ -15,7 +15,7 @@ $home_page = "<nav class=\"menu_bar\">
   </form>
   <ul class=\"menu_connexion\">";
 if($_SESSION["connexion"] == null){
-  $home_page .= "<button id=\"button_connexion\">Connexion</button>
+  $home_page .= "<button id=\"button_connexion\"><span style = \"cursor : pointer; \"> Connexion </span></button>
                  </ul></nav>
                  <ul class=\"menu_nav\">
                   <li><a href=\"#\">NewsLetters</a></li>
@@ -26,6 +26,9 @@ if($_SESSION["connexion"] == null){
                  </nav>";
 }
 else{
+  if($_SESSION["connexion"]=="admin"){
+    $home_page.= "<button id=\"pannel_admin\"><a href=\"#\">Pannel admin</a></button>";
+  }
   $home_page .= "<button id=\"button_deconnexion\"><a href=". $this->router->getDeconnexionURL() .">Deconnexion</a></button>
                  </ul></nav>
                  <ul class=\"menu_nav\">

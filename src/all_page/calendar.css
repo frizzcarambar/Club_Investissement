@@ -2,4 +2,8 @@ iframe {
   margin: 5%;
   position: relative;
   width: 90%;
+  opacity: 0.90;
+}
+.wk-daynames{
+  background-color: #d7324f;
 }

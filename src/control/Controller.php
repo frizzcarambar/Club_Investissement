@@ -40,8 +40,8 @@ class Controller{
         $requete->execute(array(':mail' => $data["mail"], ':password' => $data["password"]));
         $users = $requete->fetch();
         if($users){
-          $_SESSION['connexion'] = $users["idUsers"];
-          $this->view->displayRedirectAccueil("Vous êtes maintenant connecté");
+          $_SESSION['connexion'] = $users["role"];
+          $this->view->displayRedirectAccueil("Vous êtes maintenant connecté en tant que ".$user["role"]."");
         }
         else{
           $this->view->makeConnexionPage(new UsersBuilder(array(), $this->storage, "Les informations entrées sont invalides"));
