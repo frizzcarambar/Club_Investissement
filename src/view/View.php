@@ -69,13 +69,14 @@ class View{
     $this->title = "IUP BFA CAEN INVEST CLUB";
     $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/homeStyle.css\" type=\"text/css\">
                     <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">
-                    <link rel=\"stylesheet\" href=\"src/all_page/tableau_portefeuille.css\" type=\"text/css\">";
+                    <link rel=\"stylesheet\" href=\"src/all_page/informationAction.css\" type=\"text/css\">";
 
     include "all_page/home.php";
     $this->content = $home_page;
-    $this->content .= "<br><div class=\"parent\">
-                           <div class=\"bandeau\" style=\"background-color:red\"> </div>
-                           <div class=\"info_Gauche\">
+    $this->content .= "<br><div class=\"parent\">";
+    if($data["regularMarketChangePercent"]>0){$this->content .= "<div class=\"bandeau\" style=\"background-color:green\"></div>";}
+    else{$this->content .= "<div class=\"bandeau\" style=\"background-color:red\"></div>";}
+    $this->content .= "<div class=\"info_Gauche\">
                               <h3> {$data["shortName"]} ({$data["symbol"]}) </h3>
                               <span> {$data["regularMarketPrice"]} {$data["currency"]} </span>
                               <br>
@@ -117,7 +118,7 @@ class View{
     $this->content .= "</main><script src=\"src/all_page/home_script.js\"></script>";
     $this->renderSquelette();
   }
-  public function makeCalendarPage(array $resultat_recherche = null){
+  public function makeCalendarPage(){
     $this->title = "IUP BFA CAEN INVEST CLUB";
     $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/homeStyle.css\" type=\"text/css\">
                     <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">
@@ -132,14 +133,17 @@ class View{
   public function makePortefeuillePage($data){
     $this->title = "IUP BFA CAEN INVEST CLUB";
     $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/homeStyle.css\" type=\"text/css\">
-                    <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">";
+                    <link rel=\"stylesheet\" href=\"src/all_page/portefeuille.css\" type=\"text/css\">
+                    <link rel=\"stylesheet\" href=\"src/all_page/TableauMyAction.css\" type=\"text/css\">";
 
     include "all_page/home.php";
     $this->content .= $home_page;
-    $this->content .= "<h2 style=\"margin-top:25px\">Votre portefeuille :</h2><br>
-                       <p>Votre solde de début: {$data["starting_money"]}</p>
-                       <p>Votre solde actuel: {$data["current_money"]}</p>
-                       <p>Progression de " . $data["current_money"]/$data["starting_money"]*100 ."%.</p><br>";
+    $this->content .= "<h3> Votre portefeuille :</h3>";
+    if($data["starting_money"]>$data["solde_total"]){$this->content .= "<div id=\"actif\" style=\"border: 3px solid #ff0000; background-color: #ffe6e6;\">";}
+    else{$this->content .= "<div id=\"actif\" style=\"border: 3px solid #33cc33; background-color: #d6f5d6;\">";}
+    $this->content .="<span id=\"solde\"><span>{$data["solde_total"]}</span>€</span>
+                      <span id=\"liquidite\"><span>{$data["current_money"]}</span>€</span>
+                      </div>";
     if($_SESSION["connexion"] == "admin" || $_SESSION["connexion"] == "analyst"){
       $this->content .=
         "<form action=".$this->router->getPortefeuilleURL()." method=\"post\">
@@ -156,9 +160,33 @@ class View{
           <input type=\"text\" name=\"prix_action\" placeholder=\"Prix de l'action\" required>
           <button name=\"vendre\" type=\"submit\">Vendre</button>
         </form>";
-
     }
-
+    if($data["action"]!=null){
+      $this->content .= "<br><table id=\"myAction\">
+                          <tr>
+                            <th>Action possédée</th>
+                            <th>Prix Unitaire</th>
+                            <th>Nombre d'action</th>
+                            <th>Valeur totale d'achat</th>
+                          </tr>";
+      foreach($data["action"] as $value){
+        $this->content .= "<tr>
+                            <td>
+                              <a href=\"index.php?company={$value["symbol"]}\"><b>{$value["symbol"]}</b></a>
+                            </td>
+                            <td>
+                              {$value["prix_achat"]}
+                            </td>
+                            <td>
+                              {$value["nombre"]}
+                            </td>
+                            <td>
+                              {$value["valeur_totale"]}
+                            </td>
+                          </tr>";
+      }
+      $this->content .= "</table>";
+    }
     $this->content .= "</main><script src=\"src/all_page/home_script.js\"></script>";
     $this->renderSquelette();
   }

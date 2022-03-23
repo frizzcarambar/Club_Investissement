@@ -21,7 +21,7 @@ class Router{
       if(isset($_POST["ajout"])){
         $controller->showPortefeuille(array("action"=>"achat", "symbol"=>$_POST["symbol_action"], "nbr"=>$_POST["nbr_action"], "prix"=>$_POST["prix_action"]));
       }
-      else if(isset($_POST["ajout"])){
+      else if(isset($_POST["vendre"])){
         $controller->showPortefeuille(array("action"=>"vente", "symbol"=>$_POST["symbol_action"], "nbr"=>$_POST["nbr_action"], "prix"=>$_POST["prix_action"]));
       }
       else{
