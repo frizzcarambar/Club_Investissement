@@ -28,6 +28,12 @@ SET time_zone = "+00:00";
 -- Table structure for table `action`
 --
 
+DROP TABLE IF EXISTS `action`;
+DROP TABLE IF EXISTS `company`;
+DROP TABLE IF EXISTS `portefeuille`;
+DROP TABLE IF EXISTS `transaction`;
+DROP TABLE IF EXISTS `users`;
+
 CREATE TABLE `action` (
   `symbol` varchar(32) NOT NULL,
   `date_achat` date NOT NULL,

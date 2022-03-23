@@ -13,13 +13,15 @@ class View{
     include "view/squelette.php";
   }
 
-  public function makeAccueilPage(array $resultat_recherche = null){
+  public function makeAccueilPage($resultat_recherche = null){
     $this->title = "IUP BFA CAEN INVEST CLUB";
     $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/homeStyle.css\" type=\"text/css\">
-                    <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">";
+                    <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">
+                    <link rel=\"stylesheet\" href=\"src/all_page/newsListe.css\" type=\"text/css\">";
+
     include "all_page/home.php";
     $this->content .= $home_page;
-    if($resultat_recherche!=null){
+    if($_SESSION["connexion"]!=null && !in_array("News", $resultat_recherche) && $resultat_recherche!=null){
       $this->content .= "<br><table>
                             <tr>
                               <th>Name</th>
@@ -31,7 +33,18 @@ class View{
       }
       $this->content .= "</table>";
     }
-    $this->content .= "<script src=\"src/all_page/home_script.js\"></script>";
+    else{
+      $this->content .= "<br><h1>Dernières News</h1><ul class=\"liste_news\">";
+      unset($resultat_recherche["News"]);
+      foreach($resultat_recherche as $news){
+        $this->content .= "<li>
+                            <h3>{$news["title"]}</h3>
+                            <img src=\"{$news["image"]}\" alt=\"\">
+                          </li>";
+      }
+      $this->content .= "</ul>";
+    }
+    $this->content .= "</main><script src=\"src/all_page/home_script.js\"></script>";
     $this->renderSquelette();
   }
 
@@ -48,7 +61,7 @@ class View{
       $this->content = $this->content . "<p>" . $data->getError() . "</p>";
     }
     $this->content = $this->content . "</form>";
-    $this->content .= "<script src=\"src/all_page/home_script.js\"></script>";
+    $this->content .= "</main><script src=\"src/all_page/home_script.js\"></script>";
     $this->renderSquelette();
   }
 
@@ -101,7 +114,7 @@ class View{
                         </tr>";
     }
     $this->content .= "</table>";
-    $this->content .= "<script src=\"src/all_page/home_script.js\"></script>";
+    $this->content .= "</main><script src=\"src/all_page/home_script.js\"></script>";
     $this->renderSquelette();
   }
   public function makeCalendarPage(array $resultat_recherche = null){
@@ -112,7 +125,7 @@ class View{
     include "all_page/home.php";
     $this->content .= $home_page;
     $this->content .="<iframe src=\"https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23d7324f&ctz=Europe%2FParis&showPrint=0&showCalendars=0&showNav=0&showDate=1&showTz=0&mode=WEEK&src=bXNobXY5a2Ixa3NyODZpaWpmZjF2aDNhcGdAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%23D50000\" style=\"border:solid 1px #777\" width=\"800\" height=\"600\" frameborder=\"0\" scrolling=\"no\"></iframe>";
-    $this->content .= "<script src=\"src/all_page/home_script.js\"></script>";
+    $this->content .= "</main><script src=\"src/all_page/home_script.js\"></script>";
     $this->renderSquelette();
   }
 
@@ -146,7 +159,7 @@ class View{
 
     }
 
-    $this->content .= "<script src=\"src/all_page/home_script.js\"></script>";
+    $this->content .= "</main><script src=\"src/all_page/home_script.js\"></script>";
     $this->renderSquelette();
   }
 

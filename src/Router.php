@@ -50,7 +50,7 @@ class Router{
           $controller->verificationCompany($_POST["companys"]);
         }
         else{
-          $controller->showInformation(null);
+          $controller->showInformation();
         }
       }
     }

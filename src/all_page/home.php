@@ -1,6 +1,7 @@
 <?php
 
-$home_page = "<nav class=\"menu_bar\">
+$home_page = "<header>
+  <nav class=\"menu_bar\">
   <div class=\"menu-left\">
     <img class=\"logo\" alt=\"\" src=\"src/image/logo_club.png\">
     <a href=\"index.php\"></a>
@@ -23,7 +24,8 @@ if($_SESSION["connexion"] == null){
                   <li><a href=\"#\">Footer</a></li>
                  </ul>
                  </nav>
-                 </nav>";
+                 </nav>
+</header><main>";
 }
 else{
   if($_SESSION["connexion"]=="admin"){
@@ -38,6 +40,7 @@ else{
                   <li><a href=\"#\">Footer</a></li>
                  </ul>
                  </nav>
-                 </nav>";
+                 </nav>
+</header><main>";
 }
 ?>

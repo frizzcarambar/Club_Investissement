@@ -1,0 +1,11 @@
+.liste_news{
+  display: flex;
+  flex-flow: row;
+  list-style: none;
+  justify-content: space-between;
+}
+
+.liste_news{
+  flex-basis: 30%;
+
+}
