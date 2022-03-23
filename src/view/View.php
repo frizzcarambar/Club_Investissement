@@ -21,19 +21,25 @@ class View{
 
     include "all_page/home.php";
     $this->content .= $home_page;
-    if($_SESSION["connexion"]!=null && !in_array("News", $resultat_recherche) && $resultat_recherche!=null){
-      $this->content .= "<br><table>
-                            <tr>
-                              <th>Name</th>
-                              <th>Exchange</th>
-                              <th>Symbol</th>
-                            </tr>";
-      foreach($resultat_recherche as $value){
-        $this->content .= "<tr><td><a href=\"index.php?company={$value["symbol"]}\"><b>{$value["name"]}</b></a></td>><td>{$value["exch"]}</td>><td>{$value["symbol"]}</td></tr>";
+    if($_SESSION["connexion"]!=null && is_array($resultat_recherche) && !in_array("News", $resultat_recherche)){
+      if($_SESSION["erreur"]!=null){$this->content .= "<span style=\"color:red\">{$_SESSION["erreur"]}</span>";}
+      else{
+        $this->content .= "<br><table>
+                              <tr>
+                                <th>Name</th>
+                                <th>Exchange</th>
+                                <th>Symbol</th>
+                              </tr>";
+        foreach($resultat_recherche as $value){
+          $this->content .= "<tr><td><a href=\"index.php?company={$value["symbol"]}\"><b>{$value["name"]}</b></a></td>><td>{$value["exch"]}</td>><td>{$value["symbol"]}</td></tr>";
+        }
+        $this->content .= "</table>";
       }
-      $this->content .= "</table>";
     }
     else{
+      if($_SESSION["erreur"]!=null){
+        $this->content .= "<span style=\"color:red\">{$_SESSION["erreur"]}</span>";
+      }
       $this->content .= "<br><h1>Dernières News</h1><ul class=\"liste_news\">";
       unset($resultat_recherche["News"]);
       foreach($resultat_recherche as $news){
@@ -207,10 +213,6 @@ class View{
 
   public function displayRedirectAccueil(){
     $this->router->PostRedirect("index.php");
-  }
-
-  public function displayRedirectAccueilWithList($list){
-    $this->router->PostRedirectWithList("index.php" , $list);
   }
 }
 

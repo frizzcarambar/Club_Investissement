@@ -85,6 +85,7 @@ class Controller{
 
       public function verificationCompany(string $company){
         if($_SESSION["connexion"]==null){
+          $_SESSION["erreur"] = "Vous devez vous connecter pour effectuer une recherche";
           $this->showInformation();
         }
         else{
@@ -142,7 +143,8 @@ class Controller{
               $this->view->makeAccueilPage($all_company);
             }
             else{
-              $this->view->displayRedirectAccueil("Found nothing");
+              $_SESSION["erreur"] = "Aucune compagnie trouvée";
+              $this->view->makeAccueilPage(array());
             }
           }
         }

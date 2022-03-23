@@ -11,6 +11,7 @@ require_once("model/UsersBuilder.php");
 class Router{
   function main(){
     if(!key_exists("connexion", $_SESSION))$_SESSION["connexion"] = null;
+    if(!key_exists("erreur", $_SESSION))$_SESSION["erreur"] = null;
     $view = new View($this);
     $storage = new Database();
     $controller = new Controller($view, $storage);
@@ -29,7 +30,7 @@ class Router{
       }
     }
     else if(!isset($_GET["company"]) && !isset($_GET["action"])){
-      $controller->showInformation(null);
+      $controller->showInformation();
     }
     else if(isset($_GET["company"])){
       $controller->showInformation($_GET["company"]);
@@ -54,6 +55,7 @@ class Router{
         }
       }
     }
+    $_SESSION["erreur"] = null;
   }
 
   function getCompanyURL(){
@@ -80,7 +82,8 @@ class Router{
     return "index.php?portefeuille";
   }
 
-  function POSTredirect($url, $list = null){
+  function POSTredirect($url){
+    var_dump($_SESSION["erreur"]);
     header("Location:".$url,true,303);
   }
 }
