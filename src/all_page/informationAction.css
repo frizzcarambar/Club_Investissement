@@ -55,9 +55,7 @@ border: 2px solid black;
 .info_Bas ul li p{
   color: grey;
 }
-.graphique { grid-area: 3 / 1 / 4 / 6;
-  background-image: url("../image/test.jpg");
-  background-size: cover;
+.graphique {
+  grid-area: 3 / 1 / 4 / 6;
   height: 300px;
-
  }

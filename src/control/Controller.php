@@ -11,7 +11,7 @@ class Controller{
 
   public function showInformation($id = null){
     if($id==null){
-      $requete = $this->storage->getDb()->prepare('SELECT title, image FROM newsletters');
+      $requete = $this->storage->getDb()->prepare('SELECT title, image FROM newsletters LIMIT 3');
       $requete->execute();
       $resultats = $requete->fetchAll();
       $new_resultat = array();
@@ -57,7 +57,20 @@ class Controller{
           $this->view->displayRedirectAccueil("Vous êtes maintenant connecté en tant que ".$user["role"]."");
         }
         else{
-          $this->view->makeConnexionPage(new UsersBuilder(array(), $this->storage, "Les informations entrées sont invalides"));
+          $requete = $this->storage->getDb()->prepare('SELECT title, image FROM newsletters LIMIT 3');
+          $requete->execute();
+          $resultats = $requete->fetchAll();
+          $new_resultat = array();
+          foreach($resultats as $resultat){
+            foreach($resultat as $key => $value){
+              if(is_int($key)){
+                unset($resultat[$key]);
+              }
+            }
+            $new_resultat[]=$resultat;
+          }
+          $new_resultat["News"]="News";
+          $this->view->makeConnexionPage(new UsersBuilder(array(), $this->storage, "Les informations entrées sont invalides"), $new_resultat);
         }
       }
 
@@ -146,6 +159,7 @@ class Controller{
           $requete = $this->storage->getDb()->prepare('SELECT * FROM action WHERE symbol=:symbol');
           $requete->execute(array('symbol'=>$action["symbol"]));
           $result = $requete->fetch();
+          $action["symbol"] = strtoupper($action["symbol"]);
           if($action["action"]=="achat"){
             if($result){
               $requete = $this->storage->getDb()->prepare('UPDATE action SET nombre=:nombre, date_achat=:date_achat, prix_achat=:prix_achat WHERE symbol=:symbol');

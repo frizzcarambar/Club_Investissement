@@ -48,9 +48,11 @@ class View{
     $this->renderSquelette();
   }
 
-  public function makeConnexionPage(UsersBuilder $data){
+  public function makeConnexionPage(UsersBuilder $data, $resultat_recherche){
     $this->title = "IUP BFA CAEN INVEST CLUB";
     $this->style = "<link rel=\"stylesheet\" href=\"src/all_page/homeStyle.css\" type=\"text/css\">
+                    <link rel=\"stylesheet\" href=\"src/all_page/table.css\" type=\"text/css\">
+                    <link rel=\"stylesheet\" href=\"src/all_page/newsListe.css\" type=\"text/css\">
                     <link rel=\"stylesheet\" href=\"src/all_page/connexion.css\" type=\"text/css\">
                     ";
     include "all_page/home.php";
@@ -61,7 +63,16 @@ class View{
       $this->content = $this->content . "<p>" . $data->getError() . "</p>";
     }
     $this->content = $this->content . "</form>";
-    $this->content .= "</main><script src=\"src/all_page/home_script.js\"></script>";
+    $this->content .= "<main><br><h1>Dernières News</h1><ul class=\"liste_news\">";
+    unset($resultat_recherche["News"]);
+    foreach($resultat_recherche as $news){
+      $this->content .= "<li>
+                          <h3>{$news["title"]}</h3>
+                          <img src=\"{$news["image"]}\" alt=\"\">
+                        </li>";
+    }
+    $this->content .= "</ul>";
+    $this->content .= "</main><script src=\"src/all_page/home_script.js\"></script><script>$(\"#button_connexion\").addClass(\"active\");</script>";
     $this->renderSquelette();
   }
 
@@ -91,30 +102,21 @@ class View{
                               </ul>
                            </div>
                            <div class=\"info_Bas\">
-                             <ul>
-                               <li> <p> Long Name </p> <span> {$data["longName"]} </span> </li>
-                               <li> <p> Exchange Name </p> <span> {$data["fullExchangeName"]} </span> </li>
-                               <li> <p> Exchange Time Zone </p> <span> {$data["exchangeTimezoneName"]} </span> </li>
-                               <li> <p> VALORISATION </p> <span> {$data["marketCap"]} </span> </li>
-                               <li> <p> VOLUME  </p> <span> {$data["regularMarketVolume"]} </span> </li>
-                               <li> <p> regularDayRange </p> <span> {$data["regularMarketDayRange"]} </span> </li>
-                             </ul>
+                             <ul>";
+      if(array_key_exists("longName", $data)){$this->content .="<li><p>Long Name</p><span>{$data["longName"]}</span></li>";}
+      if(array_key_exists("fullExchangeName", $data)){$this->content .="<li><p>Exchange Name</p><span>{$data["fullExchangeName"]}</span></li>";}
+      if(array_key_exists("exchangeTimezoneName", $data)){$this->content .="<li><p>Exchange Time Zone</p><span>{$data["exchangeTimezoneName"]}</span></li>";}
+      if(array_key_exists("marketCap", $data)){$this->content .="<li><p>VALORISATION</p><span>{$data["marketCap"]}</span></li>";}
+      if(array_key_exists("regularMarketVolume", $data)){$this->content .="<li><p>VOLUME</p><span>{$data["regularMarketVolume"]}</span></li>";}
+      if(array_key_exists("regularMarketDayRange", $data)){$this->content .="<li><p>regularDayRange</p><span>{$data["regularMarketDayRange"]}</span></li>";}
+      $this->content .= "</ul>
                            </div>
-                           <div class=\"graphique\">
-                              <p> </p>
+                           <div class=\"graphique\" style=\"border-top: 1px solid black; border-bottom: 1px solid black;text-align:center\">
+                              EMPLACEMENT POUR LE GRAPHIQUE DU COURS DE L'ACTION<br>
+                              <img src=\"src/image/test.jpg\" alt=\"\"/>
+
                            </div>
-                       </div> <table>";
-    foreach($data as $key => $value){
-      $this->content .= "<tr>
-                          <td>
-                            {$key}
-                          </td>
-                          <td>
-                            {$value}
-                          </td>
-                        </tr>";
-    }
-    $this->content .= "</table>";
+                          </div>";
     $this->content .= "</main><script src=\"src/all_page/home_script.js\"></script>";
     $this->renderSquelette();
   }
@@ -143,7 +145,7 @@ class View{
     else{$this->content .= "<div id=\"actif\" style=\"border: 3px solid #33cc33; background-color: #d6f5d6;\">";}
     $this->content .="<span id=\"solde\"><span>{$data["solde_total"]}</span>€</span>
                       <span id=\"liquidite\"><span>{$data["current_money"]}</span>€</span>
-                      </div>";
+                      </div><br>";
     if($_SESSION["connexion"] == "admin" || $_SESSION["connexion"] == "analyst"){
       $this->content .=
         "<form action=".$this->router->getPortefeuilleURL()." method=\"post\">
