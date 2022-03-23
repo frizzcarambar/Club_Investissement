@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 15, 2022 at 12:33 PM
+-- Generation Time: Mar 23, 2022 at 05:09 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -24,15 +24,17 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+DROP TABLES IF EXISTS `action`;
+DROP TABLES IF EXISTS `company`;
+DROP TABLES IF EXISTS `imagefornewsletters`;
+DROP TABLES IF EXISTS `newsletters`;
+DROP TABLES IF EXISTS `portefeuille`;
+DROP TABLES IF EXISTS `transaction`;
+DROP TABLES IF EXISTS `users`;
+
 --
 -- Table structure for table `action`
 --
-
-DROP TABLE IF EXISTS `action`;
-DROP TABLE IF EXISTS `company`;
-DROP TABLE IF EXISTS `portefeuille`;
-DROP TABLE IF EXISTS `transaction`;
-DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `action` (
   `symbol` varchar(32) NOT NULL,
@@ -40,13 +42,6 @@ CREATE TABLE `action` (
   `prix_achat` float NOT NULL,
   `nombre` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `action`
---
-
-INSERT INTO `action` (`symbol`, `date_achat`, `prix_achat`, `nombre`) VALUES
-('TSLA', '2022-03-11', 50, 2);
 
 -- --------------------------------------------------------
 
@@ -163,7 +158,52 @@ INSERT INTO `company` (`idCompany`, `exch`, `name`, `symbol`, `find_with`) VALUE
 (94, 'FRA', 'Air France-KLM SA', 'AFR.F', 'air france'),
 (95, 'MIL', 'Air France-KLM SA', 'AF.MI', 'air france'),
 (96, 'NMS', 'Alphabet Inc.', 'GOOG', 'google'),
-(97, 'WCB', 'CBOE EQUITY VIXON GOOGLE', '^VXGOG', 'google');
+(97, 'WCB', 'CBOE EQUITY VIXON GOOGLE', '^VXGOG', 'google'),
+(98, 'TLO', 'LVMH', 'LVMH.TI', 'lvmh'),
+(99, 'PNK', 'LVMH Moët Hennessy - Louis Vuitton, Société Européenne', 'LVMUY', 'lvmh'),
+(100, 'PNK', 'LVMH Moët Hennessy - Louis Vuitton, Société Européenne', 'LVMHF', 'lvmh'),
+(101, 'PAR', 'LVMH Moët Hennessy - Louis Vuitton, Société Européenne', 'MC.PA', 'lvmh'),
+(102, 'FRA', 'LVMH Moët Hennessy - Louis Vuitton, Société Européenne', 'MOH.F', 'lvmh'),
+(103, 'MIL', 'LVMH Moët Hennessy - Louis Vuitton, Société Européenne', 'LVMH.MI', 'lvmh'),
+(104, 'IOB', 'LVMH Moët Hennessy - Louis Vuitton, Société Européenne', '0HAU.IL', 'lvmh'),
+(105, 'VIE', 'LVMH Moët Hennessy - Louis Vuitton, Société Européenne', 'MC.VI', 'lvmh'),
+(106, 'FRA', 'LVMH Moët Hennessy - Louis Vuitton, Société Européenne', 'MOHF.F', 'lvmh');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `imagefornewsletters`
+--
+
+CREATE TABLE `imagefornewsletters` (
+  `idNewsletter` int(11) NOT NULL,
+  `idImage` int(11) NOT NULL,
+  `urlImage` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `newsletters`
+--
+
+CREATE TABLE `newsletters` (
+  `idNewsletters` int(11) NOT NULL,
+  `title` varchar(256) NOT NULL,
+  `subtitle` varchar(256) NOT NULL,
+  `image` varchar(256) NOT NULL,
+  `text` text NOT NULL,
+  `idAuthor` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `newsletters`
+--
+
+INSERT INTO `newsletters` (`idNewsletters`, `title`, `subtitle`, `image`, `text`, `idAuthor`) VALUES
+(1, 'Ceci est une newsletter', 'Oui c\'est vrai', 'https://imgs.search.brave.com/5_b49VF7wGl2lEclXmMKB9gP953NEiAJ2Sb59uUI6pc/rs:fit:759:225:1/g:ce/aHR0cHM6Ly90c2Ux/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC40/WEI4TkYxYXdReUFw/blFERG1CbVF3SGFF/byZwaWQ9QXBp', 'C\'est bien, ceci est un test ', 0),
+(4, 'Oh un autre', '', 'https://imgs.search.brave.com/-eOMEE4GBlRNJ0SzHMiRs7kr0EhG-F8mYaaHNq0-k_8/rs:fit:844:225:1/g:ce/aHR0cHM6Ly90c2Ux/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC4x/RHl0aC0yQkZ4UnE3/SUF1RzBqSzB3SGFF/SyZwaWQ9QXBp', 'zdivjevi', 0),
+(6, 'Un dernier', '', 'https://imgs.search.brave.com/SiuWxETQA0PWNiXaLIxHzJwpLmbHxueVEU7oBLnomAM/rs:fit:759:225:1/g:ce/aHR0cHM6Ly90c2Ux/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5w/SHVTRldHVzFOODZU/cmlDN2lLU0xBSGFF/byZwaWQ9QXBp', '', 0);
 
 -- --------------------------------------------------------
 
@@ -182,7 +222,7 @@ CREATE TABLE `portefeuille` (
 --
 
 INSERT INTO `portefeuille` (`idPortefeuille`, `starting_money`, `current_money`) VALUES
-(1, 250, 150);
+(1, 2000, 2000);
 
 -- --------------------------------------------------------
 
@@ -237,6 +277,18 @@ ALTER TABLE `company`
   ADD PRIMARY KEY (`idCompany`);
 
 --
+-- Indexes for table `imagefornewsletters`
+--
+ALTER TABLE `imagefornewsletters`
+  ADD PRIMARY KEY (`idImage`);
+
+--
+-- Indexes for table `newsletters`
+--
+ALTER TABLE `newsletters`
+  ADD PRIMARY KEY (`idNewsletters`);
+
+--
 -- Indexes for table `portefeuille`
 --
 ALTER TABLE `portefeuille`
@@ -262,7 +314,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `idCompany` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `idCompany` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+
+--
+-- AUTO_INCREMENT for table `imagefornewsletters`
+--
+ALTER TABLE `imagefornewsletters`
+  MODIFY `idImage` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `newsletters`
+--
+ALTER TABLE `newsletters`
+  MODIFY `idNewsletters` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `portefeuille`
